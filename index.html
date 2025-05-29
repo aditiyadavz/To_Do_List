@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To_Do_List</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-content">
+                <div class="welcome-emoji">😊</div>
+                <h1 class="welcome-title">Welcome</h1>
+                <p class="welcome-subtitle">Manage your task<br>very easily!</p>
+            </div>
+            <button class="next-btn" onclick="showMainApp()">Next →</button>
+        </div>
+
+        <!-- Main App -->
+        <div class="main-app" id="mainApp">
+            <div class="app-header">
+                <div class="user-avatar">👤</div>
+                <div class="greeting">
+                    <h2>What are you doing today?</h2>
+                </div>
+            </div>
+
+            <input type="text" class="search-bar" placeholder="Search Content" id="searchBar">
+
+            <div class="categories">
+                <h3>Category</h3>
+                <div class="category-grid">
+                    <div class="category-card" onclick="selectCategory('design', this)">
+                        <div class="category-icon">🎨</div>
+                        <div class="category-name">Design</div>
+                        <div class="task-count" id="designCount">4 Task</div>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('sport', this)">
+                        <div class="category-icon">🏀</div>
+                        <div class="category-name">Sport</div>
+                        <div class="task-count" id="sportCount">3 Task</div>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('meeting', this)">
+                        <div class="category-icon">👥</div>
+                        <div class="category-name">Meeting</div>
+                        <div class="task-count" id="meetingCount">1 Task</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="today-tasks">
+                <h3>Today's Task</h3>
+                <div class="task-item" onclick="showTaskDetail('sketching')">
+                    <div class="task-icon">✏️</div>
+                    <div class="task-content">
+                        <div class="task-name">Sketching</div>
+                    </div>
+                </div>
+                <div class="task-item" onclick="showTaskDetail('wireframing')">
+                    <div class="task-icon">📱</div>
+                    <div class="task-content">
+                        <div class="task-name">Wireframing</div>
+                        <div class="task-time">Tomorrow</div>
+                    </div>
+                </div>
+                <div class="task-item" onclick="showTaskDetail('visual-design')">
+                    <div class="task-icon">🎨</div>
+                    <div class="task-content">
+                        <div class="task-name">Visual Design</div>
+                        <div class="task-time">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="add-task-btn" onclick="showAddTaskForm()">+ Add New Task</button>
+        </div>
+
+        <!-- Task Detail View -->
+        <div class="task-detail" id="taskDetail">
+            <div class="task-detail-header">
+                <button class="back-btn" onclick="hideTaskDetail()">←</button>
+                <h2 class="task-detail-title" id="taskDetailTitle">Sketching</h2>
+            </div>
+
+            <div class="task-info">
+                <div class="task-date">
+                    <strong>📅 Due Date:</strong> Fri 25 Dec
+                </div>
+                <div class="task-assignee" style="margin-top: 1rem;">
+                    <strong>👤 Assigned to:</strong> Jose Hendrick
+                </div>
+            </div>
+
+            <div class="task-list" style="margin-top: 2rem;">
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                    <div class="task-content">
+                        <div class="task-name">Sketch object 1</div>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox checked" onclick="toggleTask(this)"></div>
+                    <div class="task-content">
+                        <div class="task-name">Sketch object 2</div>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                    <div class="task-content">
+                        <div class="task-name">Sketch object 3</div>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                    <div class="task-content">
+                        <div class="task-name">Sketch object 4</div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="text" class="new-task-input" placeholder="Add new task..." id="newTaskInput" style="display: none;">
+            <button class="add-task-btn" onclick="addNewTask()" id="addTaskBtn">+ Add Subtask</button>
+
+            <div class="task-description" style="margin-top: 2rem;">
+                <p style="opacity: 0.8; line-height: 1.6;">
+                    Mostly confined to home during this extended coronavirus season, I have cultivated a healthy fear of the outside world. When I go to the grocery store, I speed bullets.
+                </p>
+            </div>
+
+            <div class="attachments">
+                <div class="attachment"></div>
+                <div class="attachment"></div>
+                <div class="attachment"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
