@@ -28,7 +28,11 @@ TO_DO_PLANNER/
 ### 📌🖥️ Welcome Screen
 <img src="img/welcome.png" width="300" />
 
+<<<<<<< HEAD
 ### 📋 Categories Section
+=======
+### 📋 Category Section
+>>>>>>> 5da142e7ab207d990532ced78fbf6ba697ae5a19
 <img src="img/category.png" width="200" />
 <img src="img/categorySelect.png" width="200" />
 
@@ -53,4 +57,8 @@ TO_DO_PLANNER/
 - Click on a category to open its **This Week** (weekly view).
 - Type and enter on **Add task...** to add tasks under each day.
 - Remove tasks by clicking **❌** beside them.
+<<<<<<< HEAD
 - Stay motivated with the built-in **quote** at the bottom!
+=======
+- Stay motivated with the built-in **quote** at the bottom!
+>>>>>>> 5da142e7ab207d990532ced78fbf6ba697ae5a19
