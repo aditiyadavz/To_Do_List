@@ -26,31 +26,31 @@ TO_DO_PLANNER/
 ---
 
 ### 📌🖥️ Welcome Screen
-<img src="img/LandingPage.png" width="300" />
+<img src="img/welcome.png" width="300" />
 
-### 📋 Categories Section
-<img src="img/InAction.png" width="200" />
-<img src="img/Result.png" width="200" />
+### 📋 Category Section
+<img src="img/category.png" width="200" />
+<img src="img/categorySelect.png" width="200" />
 
 ### 🗓️ Weekly Task Planner
-<img src="img/weekly-planner.png" width="300" />
+<img src="img/weekly.png" width="200" />
 
 ---
 
 ## 💻 Tech Stack
 
 - **HTML5** – Page structure and semantic layout  
-- **CSS3** – Styling, grid/flex layouts, animations  
+- **CSS3** – Styling, grid/flex layouts  
 - **JavaScript** – Dynamic DOM rendering, category/task logic 
 
 ---
 
 ## 🧠 How it works?
 
-- Start on the **Welcome Screen** and click **Next**.
-- Add a **Category** (e.g., DSA, Aptitude, Full-Stack).
-- Click on a category to open its **Week View**.
-- Type and press **Enter** to add tasks under each day.
-- Remove tasks by clicking **×** beside them.
-- Use the 🗑️ icon to delete a category entirely.
+- Start on the **Welcome Screen** and click **Next ➔**.
+- Add a category by clicking **+ Add Category** (e.g., DSA, Aptitude, Full-Stack, Gym).
+- Use the ❌ icon to delete a category entirely.
+- Click on a category to open its **This Week** (weekly view).
+- Type and enter on **Add task...** to add tasks under each day.
+- Remove tasks by clicking **❌** beside them.
 - Stay motivated with the built-in **quote** at the bottom!
