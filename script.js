@@ -1,104 +1,162 @@
-let tasks = {
-            design: ['Sketching', 'Wireframing', 'Visual Design', 'Prototyping'],
-            sport: ['Morning Run', 'Gym Workout', 'Basketball'],
-            meeting: ['Team Standup']
-        };
+let categories = {
+  DSA: {
+    name: "DSA",
+    tasks: {
+      monday: ["Leetcode questions -2",],
+      tuesday: ["Leetcode questions -2"],
+      wednesday: ["Leetcode questions -2"],
+      thursday: ["Leetcode questions -2"],
+      friday: ["Leetcode questions -2"],
+      saturday: ["Leetcode questions -3"],
+      sunday: ["Leetcode questions -3"]
+    }
+  },
+  Full_Stack: {
+    name: "Full-Stack",
+    tasks: {
+      monday: ["Weather App", "Capstone"],
+      tuesday: ["Capstone"],
+      wednesday: ["To-Do-List", "Capstone"],
+      thursday: [],
+      friday: ["Job-Board", "Capstone"],
+      saturday: [],
+      sunday: ["Revise", "Capstone"]
+    }
+  },
+  Aptitude: {
+    name: "Aptitude & Grammer",
+    tasks: {
+      monday: ["Profit Loss", "Soft-skills"],
+      tuesday: ["Average"],
+      wednesday: [],
+      thursday: ["Errors"],
+      friday: [],
+      saturday: ["Soft Skills"],
+      sunday: []
+    }
+  }
+};
 
-        let currentCategory = 'design';
+let selectedCategory = null;
 
-        function showMainApp() {
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('mainApp').classList.add('active');
-        }
+function showMainApp() {
+  document.getElementById("welcomeScreen").style.display = "none";
+  document.getElementById("mainApp").style.display = "block";
+  renderCategories();
+}
 
-        function selectCategory(category, element) {
-            // Remove active class from all categories
-            document.querySelectorAll('.category-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // Add active class to selected category
-            element.classList.add('active');
-            
-            currentCategory = category;
-            updateTaskList();
-        }
+function addCategory() {
+  const name = prompt("Enter category name:");
+  if (!name) return;
 
-        function updateTaskList() {
-            // This would update the task list based on selected category
-            // For demo purposes, we'll keep the existing tasks
-        }
+  const id = name.toLowerCase().replace(/\s+/g, '-');
+  if (categories[id]) {
+    alert("Category already exists!");
+    return;
+  }
 
-        function showTaskDetail(taskName) {
-            document.getElementById('mainApp').style.display = 'none';
-            document.getElementById('taskDetail').classList.add('active');
-            document.getElementById('taskDetailTitle').textContent = taskName.charAt(0).toUpperCase() + taskName.slice(1);
-        }
+  categories[id] = {
+    name: name,
+    tasks: {
+      monday: [],
+      tuesday: [],
+      wednesday: [],
+      thursday: [],
+      friday: [],
+      saturday: [],
+      sunday: []
+    }
+  };
 
-        function hideTaskDetail() {
-            document.getElementById('taskDetail').classList.remove('active');
-            document.getElementById('mainApp').style.display = 'block';
-        }
+  renderCategories();
+}
 
-        function toggleTask(checkbox) {
-            checkbox.classList.toggle('checked');
-            const taskItem = checkbox.closest('.task-item');
-            taskItem.classList.toggle('completed');
-        }
+function deleteCategory(id) {
+  if (confirm("Delete this category?")) {
+    delete categories[id];
+    selectedCategory = null;
+    renderCategories();
+    clearWeekGrid();
+  }
+}
 
-        function showAddTaskForm() {
-            const input = document.getElementById('newTaskInput');
-            const btn = document.getElementById('addTaskBtn');
-            
-            if (input.style.display === 'none' || input.style.display === '') {
-                input.style.display = 'block';
-                input.focus();
-                btn.textContent = 'Save Task';
-            } else {
-                addNewTask();
-            }
-        }
+function renderCategories() {
+  const container = document.getElementById("categoryContainer");
+  container.innerHTML = "";
 
-        function addNewTask() {
-            const input = document.getElementById('newTaskInput');
-            const taskText = input.value.trim();
-            
-            if (taskText) {
-                const taskList = document.querySelector('.task-list');
-                const newTask = document.createElement('div');
-                newTask.className = 'task-item';
-                newTask.innerHTML = `
-                    <div class="task-checkbox" onclick="toggleTask(this)"></div>
-                    <div class="task-content">
-                        <div class="task-name">${taskText}</div>
-                    </div>
-                `;
-                taskList.appendChild(newTask);
-                
-                input.value = '';
-                input.style.display = 'none';
-                document.getElementById('addTaskBtn').textContent = '+ Add Subtask';
-            }
-        }
+  for (const id in categories) {
+    const category = categories[id];
+    const card = document.createElement("div");
+    card.className = "category-card";
+    if (selectedCategory === id) card.classList.add("active");
 
-        // Search functionality
-        document.getElementById('searchBar').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const taskItems = document.querySelectorAll('.task-item');
-            
-            taskItems.forEach(item => {
-                const taskName = item.querySelector('.task-name').textContent.toLowerCase();
-                if (taskName.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
+    card.onclick = () => selectCategory(id);
+    card.innerHTML = `
+      <button class="delete-category" onclick="event.stopPropagation(); deleteCategory('${id}')">×</button>
+      <div class="category-icon">📁</div>
+      <div class="category-name">${category.name}</div>
+      <div class="task-count">${countTotalTasks(category.tasks)} Task</div>
+    `;
 
-        // Add enter key support for new task input
-        document.getElementById('newTaskInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addNewTask();
-            }
-        });
+    container.appendChild(card);
+  }
+}
+
+function countTotalTasks(weekTasks) {
+  return Object.values(weekTasks).reduce((acc, arr) => acc + arr.length, 0);
+}
+
+function selectCategory(id) {
+  selectedCategory = id;
+  renderCategories();
+  renderWeekPlanner(categories[id].tasks);
+}
+
+function clearWeekGrid() {
+  document.getElementById("weekGrid").innerHTML = "";
+}
+
+function renderWeekPlanner(tasks) {
+  const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  const container = document.getElementById("weekGrid");
+  container.innerHTML = "";
+
+  days.forEach(day => {
+    const card = document.createElement("div");
+    card.className = "day-card";
+
+    const capitalDay = day.charAt(0).toUpperCase() + day.slice(1);
+
+    const listItems = tasks[day].map((task, i) => `
+      <li>
+        ${task}
+        <span class="delete-task" onclick="deleteTask('${day}', ${i})">×</span>
+      </li>
+    `).join("");
+
+    card.innerHTML = `
+      <h4>${capitalDay}</h4>
+      <ul id="${day}Tasks">${listItems}</ul>
+      <input type="text" placeholder="Add task..." onkeypress="addDayTask(event, '${day}')">
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function addDayTask(event, day) {
+  if (event.key === "Enter") {
+    const input = event.target;
+    const value = input.value.trim();
+    if (!value || !selectedCategory) return;
+
+    categories[selectedCategory].tasks[day].push(value);
+    renderWeekPlanner(categories[selectedCategory].tasks);
+  }
+}
+
+function deleteTask(day, index) {
+  if (!selectedCategory) return;
+  categories[selectedCategory].tasks[day].splice(index, 1);
+  renderWeekPlanner(categories[selectedCategory].tasks);
+}
