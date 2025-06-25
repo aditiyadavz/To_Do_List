@@ -9,31 +9,36 @@
 </head>
 <body>
   <div class="app-container">
-    <div class="welcome-screen" id="welcomeScreen">
-      <div class="welcome-content">
+    <!-- Welcome Screen -->
+    <section class="welcome-screen fade-in" id="welcomeScreen">
+      <div class="welcome-content scale-up">
         <div class="welcome-emoji">😊</div>
         <h1 class="welcome-title">Welcome</h1>
-        <p class="welcome-subtitle">Manage your task<br>very easily!</p>
+        <p class="welcome-subtitle">Manage your tasks<br>very easily!</p>
       </div>
-      <button class="next-btn" onclick="showMainApp()">Next →</button>
-    </div>
+      <button class="next-btn pulse" onclick="showMainApp()">Next →</button>
+    </section>
 
-    <div class="main-app" id="mainApp" style="display: none;">
-      <div class="categories">
-        <h3>Category</h3>
+    <!-- Main Application -->
+    <main class="main-app fade-in" id="mainApp" style="display: none;">
+      <!-- Categories Section -->
+      <section class="categories slide-up">
+        <h3>Categories</h3>
         <div id="categoryContainer" class="category-grid"></div>
-        <button class="add-category-btn" onclick="addCategory()">+ Add Category</button>
-      </div>
+        <button class="add-category-btn hover-rise" onclick="addCategory()">+ Add Category</button>
+      </section>
 
-      <div class="week-planner">
-        <h3 style="margin-bottom: 1rem;">This Week</h3>
+      <!-- Week Planner Section -->
+      <section class="week-planner slide-up">
+        <h3>This Week</h3>
         <div class="day-grid" id="weekGrid"></div>
-      </div>
+      </section>
 
-      <div class="quote-card">
+      <!-- Motivation Quote -->
+      <section class="quote-card shadow-pop">
         <p>"Discipline > Motivation 💪✨"</p>
-      </div>
-    </div>
+      </section>
+    </main>
   </div>
 </body>
 </html>
