@@ -1,44 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To_Do_List</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow ✦</title>
+  <link rel="stylesheet" href="styles.css"/>
   <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="app-container">
-    <!-- Welcome Screen -->
-    <section class="welcome-screen fade-in" id="welcomeScreen">
-      <div class="welcome-content scale-up">
-        <div class="welcome-emoji">😊</div>
-        <h1 class="welcome-title">Welcome</h1>
-        <p class="welcome-subtitle">Manage your tasks<br>very easily!</p>
+
+  <!-- Welcome -->
+  <div class="welcome" id="welcomeScreen">
+    <div class="welcome-blob blob1"></div>
+    <div class="welcome-blob blob2"></div>
+    <div class="welcome-blob blob3"></div>
+    <div class="welcome-card">
+      <div class="welcome-sparkle">✦</div>
+      <h1 class="welcome-title">TaskFlow</h1>
+      <p class="welcome-sub">Plan your week.<br>Crush your goals.</p>
+      <div class="welcome-dots">
+        <span class="dot dot-purple"></span>
+        <span class="dot dot-pink"></span>
+        <span class="dot dot-amber"></span>
+        <span class="dot dot-teal"></span>
       </div>
-      <button class="next-btn pulse" onclick="showMainApp()">Next →</button>
-    </section>
+      <button class="btn-start" onclick="showMainApp()">Let's go →</button>
+    </div>
+  </div>
 
-    <!-- Main Application -->
-    <main class="main-app fade-in" id="mainApp" style="display: none;">
-      <!-- Categories Section -->
-      <section class="categories slide-up">
-        <h3>Categories</h3>
-        <div id="categoryContainer" class="category-grid"></div>
-        <button class="add-category-btn hover-rise" onclick="addCategory()">+ Add Category</button>
-      </section>
+  <!-- App Shell -->
+  <div class="app" id="mainApp" style="display:none">
 
-      <!-- Week Planner Section -->
-      <section class="week-planner slide-up">
-        <h3>This Week</h3>
-        <div class="day-grid" id="weekGrid"></div>
-      </section>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <span class="brand-mark">✦</span>
+          <span class="brand-name">TaskFlow</span>
+        </div>
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+      </div>
 
-      <!-- Motivation Quote -->
-      <section class="quote-card shadow-pop">
-        <p>"Discipline > Motivation 💪✨"</p>
-      </section>
+      <div class="sidebar-body">
+        <p class="section-label">Categories</p>
+        <div id="catList"></div>
+        <button class="add-cat-btn" onclick="openAddCat()">
+          <span class="plus-icon">+</span> New category
+        </button>
+      </div>
+
+      <div class="sidebar-bot">
+        <p class="section-label">This week</p>
+        <div class="progress-ring-wrap">
+          <svg class="progress-ring" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="32" class="ring-bg"/>
+            <circle cx="40" cy="40" r="32" class="ring-fill" id="ringFill"/>
+          </svg>
+          <div class="ring-label">
+            <span id="ringPct">0%</span>
+            <span class="ring-sub">done</span>
+          </div>
+        </div>
+        <p class="progress-note" id="progressNote">Select a category</p>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content" id="content">
+      <header class="topbar">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-info">
+          <h2 id="topTitle">Welcome! 👋</h2>
+          <p id="topSub" class="top-sub">Choose a category to see your week</p>
+        </div>
+      </header>
+
+      <!-- Empty state -->
+      <div class="empty" id="emptyState">
+        <div class="empty-art">
+          <div class="empty-circle c1"></div>
+          <div class="empty-circle c2"></div>
+          <div class="empty-circle c3"></div>
+          <span class="empty-emoji">📋</span>
+        </div>
+        <h3>Nothing here yet</h3>
+        <p>Create a category and start planning your week!</p>
+        <button class="btn-primary" onclick="openAddCat()">+ Create a category</button>
+      </div>
+
+      <!-- Week grid -->
+      <div class="week-grid" id="weekGrid" style="display:none"></div>
+
+      <!-- Quote -->
+      <div class="quote-strip" id="quoteStrip" style="display:none">
+        <span class="quote-gem">✦</span>
+        <span id="quoteText"></span>
+        <button class="quote-next" onclick="nextQuote()" title="Next quote">↻</button>
+      </div>
     </main>
   </div>
+
+  <!-- Add Category Modal -->
+  <div class="overlay" id="catModal" onclick="overlayClose(event)">
+    <div class="modal">
+      <h3>New category</h3>
+      <label class="field-label">Name</label>
+      <input id="catName" class="field-input" placeholder="e.g. Fitness, Work, Study…" maxlength="28"/>
+      <label class="field-label">Pick an icon</label>
+      <div class="icon-grid" id="iconGrid"></div>
+      <label class="field-label">Pick a color</label>
+      <div class="color-row" id="colorRow"></div>
+      <div class="modal-footer">
+        <button class="btn-ghost" onclick="closeCatModal()">Cancel</button>
+        <button class="btn-primary" onclick="confirmCat()">Create →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toasts"></div>
 </body>
 </html>
