@@ -30,10 +30,7 @@ TO_DO_PLANNER/
 
 ### 📋 Category Section
 <img src="img/category.png" width="200" />
-<img src="img/categorySelect.png" width="200" />
-
-### 🗓️ Weekly Task Planner
-<img src="img/weekly.png" width="200" />
+<img src="img/newCategory.png" width="200" />
 
 ---
 
